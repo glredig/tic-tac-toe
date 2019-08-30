@@ -1,0 +1,41 @@
+.container {
+  margin: auto;
+  height: 500px;
+  width: 500px;
+}
+
+.board {
+  height: 460px;
+  width: 460px;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 155px 155px 155px;
+  grid-gap: 0px;
+  border-radius: 5px;
+}
+
+.board .square {
+  width: 140px;
+  height: 140px;
+  cursor: pointer;
+}
+
+.board .square:hover {
+  background-color: #aaa;
+}
+
+.square-0, .square-1, .square-2, .square-3, .square-4, .square-5 {
+  border-bottom: 5px solid #555;
+}
+
+.square-6, .square-7, .square-8, .square-3, .square-4, .square-5 {
+  border-top: 5px solid #555;
+}
+
+.square-0, .square-3, .square-6, .square-1, .square-4, .square-7 {
+  border-right: 5px solid #555;
+}
+
+.square-1, .square-4, .square-7, .square-2, .square-5, .square-8 {
+  border-left: 5px solid #555;
+}
