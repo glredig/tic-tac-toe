@@ -1,3 +1,7 @@
+html {
+  font-family: arial, sans-serif
+}
+
 .container {
   margin: auto;
   height: 500px;
@@ -5,12 +9,11 @@
 }
 
 .board {
-  height: 460px;
-  width: 460px;
+  height: 450px;
+  width: 450px;
   background-color: #ccc;
-  display: grid;
-  grid-template-columns: 155px 155px 155px;
-  grid-gap: 0px;
+  display: flex;
+  flex-wrap: wrap;
   border-radius: 5px;
 }
 
@@ -18,24 +21,52 @@
   width: 140px;
   height: 140px;
   cursor: pointer;
+  border: 5px solid #aaa;
+  position: relative;
 }
 
-.board .square:hover {
+.board .square.selected-x,
+.board .square.selected-o {
+  cursor: default;
+}
+
+.board .square:not(.selected-x):not(.selected-o):hover {
   background-color: #aaa;
 }
 
-.square-0, .square-1, .square-2, .square-3, .square-4, .square-5 {
-  border-bottom: 5px solid #555;
+.board .square:not(.selected-x):not(.selected-o):hover::after,
+.board .square.selected-x::after,
+.board .square.selected-o::after {
+  height: 140px;
+  width: 140px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 75px;
+  font-weight: bold;
 }
 
-.square-6, .square-7, .square-8, .square-3, .square-4, .square-5 {
-  border-top: 5px solid #555;
+.board.player-x .square:not(.selected-x):not(.selected-o):hover::after,
+.board .square.selected-x::after {
+  content: 'x';
 }
 
-.square-0, .square-3, .square-6, .square-1, .square-4, .square-7 {
-  border-right: 5px solid #555;
+.board.player-o .square:not(.selected-x):not(.selected-o):hover::after,
+.board .square.selected-o::after {
+  content: 'o';
 }
 
-.square-1, .square-4, .square-7, .square-2, .square-5, .square-8 {
-  border-left: 5px solid #555;
+.board .square-0, .board .square-1, .board .square-2, .board .square-3, .board .square-4, .board .square-5 {
+  border-bottom-color: #555;
+}
+
+.board .square-6, .board .square-7, .board .square-8, .board .square-3, .board .square-4, .board .square-5 {
+  border-top-color: #555;
+}
+
+.board .square-0, .board .square-3, .board .square-6, .board .square-1, .board .square-4, .board .square-7 {
+  border-right-color: #555;
+}
+
+.board .square-1, .board .square-4, .board .square-7, .board .square-2, .board .square-5, .board .square-8 {
+  border-left-color: #555;
 }
