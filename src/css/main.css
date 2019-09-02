@@ -2,10 +2,16 @@ html {
   font-family: arial, sans-serif
 }
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .container {
   margin: auto;
   height: 500px;
   width: 500px;
+  margin-top: 5em;
 }
 
 .board {
@@ -23,6 +29,11 @@ html {
   cursor: pointer;
   border: 5px solid #aaa;
   position: relative;
+  display: flex;
+  align-content: space-around;
+  justify-content: center;
+  text-align: center;
+  font-size: 110px;
 }
 
 .board .square.selected-x,
@@ -39,10 +50,13 @@ html {
 .board .square.selected-o::after {
   height: 140px;
   width: 140px;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 75px;
   font-weight: bold;
+  position: absolute;
+  top: 0;
+}
+
+.board .square:not(.selected-x):not(.selected-o):hover::after {
+  color: #888;
 }
 
 .board.player-x .square:not(.selected-x):not(.selected-o):hover::after,
@@ -69,4 +83,21 @@ html {
 
 .board .square-1, .board .square-4, .board .square-7, .board .square-2, .board .square-5, .board .square-8 {
   border-left-color: #555;
+}
+
+.board .square.winner {
+  background-color: #99dd99;
+}
+
+.flash-message {
+  padding: 1em 0;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  font-size: 1.5em;
+  background-color: #9999bb;
+  display: none;
+  z-index: 1;
 }

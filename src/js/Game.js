@@ -1,6 +1,6 @@
 import FlashMessage from './FlashMessage';
 import GameBoard from './GameBoard';
-import WINNERS from './constants';
+import { WINNERS } from './constants';
 
 export default class Game {
   constructor() {
@@ -31,22 +31,45 @@ export default class Game {
       return false;
     }
 
-    let selection = this.currentPlayer === 'x' ? this.playerXSelections : this.playerOSelections;
+    let selectionSet = this.currentPlayer === 'x' ? this.playerXSelections : this.playerOSelections;
     e.target.classList.add(`selected-${this.currentPlayer}`);
 
-    selection.push(number);
-    if (this.isWinner(selection)) {
-      console.log('Winner is: ', this.currentPlayer, selection);
+    selectionSet.push(number);
+
+    let isWinner = this.isWinner(selectionSet);
+    if (isWinner) {
+      isWinner.forEach((id) => {
+        document.getElementById(id).classList.add('winner');
+      });
+      this.flashMessage.alertMessage(`Player ${this.currentPlayer} is the winner!`);
     }
-    
-    this.currentPlayer = this.currentPlayer === 'x' ? 'o' : 'x';
-    this.board.updateCurrentPlayer(this.currentPlayer);
+    else if (this.playerXSelections.length + this.playerOSelections.length >= 9) {
+      this.flashMessage.alertMessage(`Cat's game. No winner this time. :-(`);
+    }
+    else {
+      this.currentPlayer = this.currentPlayer === 'x' ? 'o' : 'x';
+      this.board.updateCurrentPlayer(this.currentPlayer);
+    }
   }
 
   isWinner(selectionArray) {
-    return false;
-    // WINNERS.forEach((winner) => {
-    //   winner.forEach
-    // })
+    let matchWinner = false;
+    WINNERS.forEach((winner) => {
+      if (this.arrayContains(selectionArray, winner)) {
+        matchWinner = winner;
+      }
+    })
+
+    return matchWinner;
+  }
+
+  arrayContains(selected, winner) {
+    if (selected.length === 0 || winner === 0) {
+      return false;
+    }
+
+    return winner.every((el) => {
+      return selected.indexOf(el) > -1;
+    });
   }
 }

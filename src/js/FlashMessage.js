@@ -8,6 +8,10 @@ export default class FlashMessage {
     this.container = document.createElement('div');
     this.container.className = 'flash-message';
     document.body.appendChild(this.container);
-    this.container.innerHTML = 'Loading...';
+  }
+
+  alertMessage(message) {
+    this.container.innerText = message;
+    this.container.style.display = 'block';
   }
 }
