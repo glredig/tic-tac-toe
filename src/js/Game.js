@@ -4,30 +4,41 @@ import { WINNERS } from './constants';
 
 export default class Game {
   constructor() {
-    console.log('loading game...');
+    console.log('Loading game...');
     this.flashMessage = new FlashMessage();
-    this.build();
+    this.buildContainer();
     this.board = new GameBoard({
       container: this.container,
       clickHandler: this.handleSquareClick.bind(this),
       player: 'x',
       game: this
     });
+    this.buildRestartButton();
     this.currentPlayer = 'x';
     this.playerXSelections = [];
     this.playerOSelections = [];
+    this.active = true;
+    this.flashMessage.alertMessage(`Player x's turn...`);
   }
 
-  build() {
+  buildContainer() {
     this.container = document.createElement('div');
     this.container.className = 'container';
     document.body.appendChild(this.container);
   }
 
+  buildRestartButton() {
+    this.restartButton = document.createElement('button');
+    this.restartButton.innerText = 'Restart Game';
+    this.restartButton.className = 'button-restart';
+    this.container.appendChild(this.restartButton);
+    this.restartButton.addEventListener('click', this.reset.bind(this));
+  }
+
   handleSquareClick(e) {
     let number = parseInt(e.target.id, 10);
 
-    if (this.playerXSelections.indexOf(number) > -1 || this.playerOSelections.indexOf(number) > -1) {
+    if (!this.active || this.playerXSelections.indexOf(number) > -1 || this.playerOSelections.indexOf(number) > -1) {
       return false;
     }
 
@@ -41,6 +52,7 @@ export default class Game {
       isWinner.forEach((id) => {
         document.getElementById(id).classList.add('winner');
       });
+      this.active = false;
       this.flashMessage.alertMessage(`Player ${this.currentPlayer} is the winner!`);
     }
     else if (this.playerXSelections.length + this.playerOSelections.length >= 9) {
@@ -49,6 +61,7 @@ export default class Game {
     else {
       this.currentPlayer = this.currentPlayer === 'x' ? 'o' : 'x';
       this.board.updateCurrentPlayer(this.currentPlayer);
+      this.flashMessage.alertMessage(`Player ${this.currentPlayer}'s turn...`);
     }
   }
 
@@ -61,6 +74,17 @@ export default class Game {
     })
 
     return matchWinner;
+  }
+
+  reset() {
+    this.active = true;
+    this.playerXSelections = [];
+    this.playerOSelections = [];
+    this.currentPlayer = 'x';
+    this.flashMessage.alertMessage(`Player ${this.currentPlayer}'s turn...`);
+    document.querySelectorAll('.square').forEach((el) => {
+      el.classList.remove('selected-x', 'selected-o', 'winner');
+    });
   }
 
   arrayContains(selected, winner) {

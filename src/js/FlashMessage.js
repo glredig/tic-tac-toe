@@ -1,6 +1,5 @@
 export default class FlashMessage {
   constructor() {
-    console.log('loading flash message...')
     this.build();
   }
 
@@ -13,5 +12,9 @@ export default class FlashMessage {
   alertMessage(message) {
     this.container.innerText = message;
     this.container.style.display = 'block';
+  }
+
+  hide() {
+    this.container.style.display = 'none';
   }
 }
