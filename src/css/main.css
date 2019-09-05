@@ -94,19 +94,19 @@ body {
 }
 
 .board .square-0, .board .square-1, .board .square-2, .board .square-3, .board .square-4, .board .square-5 {
-  border-bottom-color: #555;
+  border-bottom-color: #556;
 }
 
 .board .square-6, .board .square-7, .board .square-8, .board .square-3, .board .square-4, .board .square-5 {
-  border-top-color: #555;
+  border-top-color: #556;
 }
 
 .board .square-0, .board .square-3, .board .square-6, .board .square-1, .board .square-4, .board .square-7 {
-  border-right-color: #555;
+  border-right-color: #556;
 }
 
 .board .square-1, .board .square-4, .board .square-7, .board .square-2, .board .square-5, .board .square-8 {
-  border-left-color: #555;
+  border-left-color: #556;
 }
 
 .board .square.winner {
@@ -121,7 +121,8 @@ body {
   top: 0;
   left: 0;
   font-size: 1.5em;
-  background-color: #9999bb;
+  background-color: #7ba1d1;
   display: none;
   z-index: 1;
+  border-bottom: 1px solid #3d70ae;
 }

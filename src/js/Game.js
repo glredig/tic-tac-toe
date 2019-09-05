@@ -88,7 +88,7 @@ export default class Game {
   }
 
   arrayContains(selected, winner) {
-    if (selected.length === 0 || winner === 0) {
+    if (selected.length === 0 || winner.length === 0) {
       return false;
     }
 
